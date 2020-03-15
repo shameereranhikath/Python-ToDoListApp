@@ -1,0 +1,57 @@
+{%  extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row mt-3">
+        <div class="col">
+            <form  action="AddItem/" method="POST" class="form-inline">
+                {% csrf_token %}
+
+                <input type="text" name="content" class="form-control col-md-4 mb-1" id="inlineFormInput" placeholder="Enter To Do List Item">
+                <button type="submit" class="btn btn-primary mb-2 ml-2">Add Item</button>
+            </form>
+           
+        </div>
+    </div>
+    <table class="table table-striped table-dark mt-3">
+        <thead>
+          <tr>
+            <th scope="col">SI.NO</th>
+            <th scope="col">Task</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for todo in Todolistdata %}
+            <form action="DeleteItem/{{todo.id}}/" method="POST"> 
+                {% csrf_token %}
+            <tr>
+               
+                <td>{{forloop.counter}}</td>
+                <td> {{todo.text}} </td>
+                <td> {{todo.created_date}}</td>
+                <td>
+                    <button type="submit" value="Delete" class="btn btn-danger">Delete</button></td>
+            </tr>
+        </form>
+            {% endfor %}
+        </tbody>
+    <!-- <div class="row mt-3">
+        <div class="col-md-8 offset-md-2">
+                    <ul class="list-group">
+                {% for todo in Todolistdata %}
+                <li class="list-group-item">
+                    {{todo.text}}
+                    <button type="button" class="btn btn-danger float-right">Delete</button>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div> -->
+</div>
+
+
+
+
+{% endblock %}
